@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -38,3 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 =======
 
 >>>>>>> b4f9c329d1c25b7ffb843f81dfa4ee7f22d79c48
+=======
+# login-validation
+Projeto utilizando Next.js com Typescript, onde o objetivo e conseguir criar uma tela de cadastro de usuários armazenando suas informações em um banco de dados, e depois validando seus dados de login. 
+>>>>>>> 2743a4f17a1c26137465bfa853ffa3248c31990e
