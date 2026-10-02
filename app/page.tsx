@@ -1,6 +1,5 @@
 import "./login.css";
 import Validalogin from "@/components/validaLogin/input";
-// import LogarComo from "@/components/LogarComo/Button";
 
 export default function LoginPage() {
     return (

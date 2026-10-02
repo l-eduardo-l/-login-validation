@@ -14,6 +14,7 @@ export default function Cadastrarlogin() {
                     <RegistroDeLogin />
 
                 </div>
+                <span><a href="/">Fazer login</a></span>
             </div>
         </main>
     );

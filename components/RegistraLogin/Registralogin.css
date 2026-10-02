@@ -1,6 +1,6 @@
 .cadastroContainer {
-    width: 110%;
-    height: 300px;
+    width: 100%;
+    height: 250px;
 
     display: flex;
     flex-direction: column;
