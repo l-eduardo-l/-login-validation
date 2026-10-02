@@ -13,7 +13,7 @@ export default function LoginPage() {
 
             </div>
 
-            <span className="recSenha">Esqueceu a senha?</span>
+            <span className="recSenha"><a href="/RecuperarSenha">Esqueceu a senha?</a></span>
 
            <div className="barr"></div>
 
