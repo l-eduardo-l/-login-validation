@@ -1,20 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 .container {
-    background-color: rgb(255, 255, 255);
-    width: 300px;
-    height: 300px;
-    margin: 10% auto;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    width: 300px;
+    height: 300px;
+    margin: 10% auto;
 }
 
 .container h2 {
-    font-size: medium;
-    margin-top: -50px;
+    color: white;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
@@ -22,6 +21,24 @@
 .recSenha {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 12px;
-    color: blue;
+    color: rgb(28, 28, 182);
     font-family: 'Nunito', sans-serif;
+}
+.barr {
+    background-color: white;
+    height: 1px;
+    width: 80%;
+    margin: 10px;
+}
+samp {
+    color: gray;
+    font-size: 8px;
+    font-family: 'Nunito', sans-serif;
+}
+
+samp a {
+    color: rgb(109, 84, 156);
+    text-decoration: none;
+    font-size: 10px;
+      font-family: 'Nunito', sans-serif;
 }

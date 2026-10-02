@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import "./Registralogin.css";
 
 export default function RegistroDeLogin() {
@@ -13,7 +14,20 @@ export default function RegistroDeLogin() {
     const [alert, setAlert] = useState("");
     const [validation, setValidation] = useState(false);
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const [usuarios, serUsuarios] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
+    const router = useRouter();
+
+
+    // Faz com  que a mensagem de alerta desapareça após 2 segundos
+    useEffect(() => {
+        if (alert === "") return;
+
+        const timer = setTimeout(() => {
+            setAlert("");
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [alert]);
 
     //Função que valida Login
     function validalogin() {
@@ -34,6 +48,18 @@ export default function RegistroDeLogin() {
             return;
         }
 
+        //Verifica se o usuário e válido.
+        if (user.length < 3) {
+            setAlert("O usuário deve ter no minimo 3 caracteres");
+            return;    
+        } if (user.length > 12) {
+            setAlert("O usuário deve ter no maximo 12 caracteres");
+            return;
+        } if (user.includes(" ") || /[!@\/#$%^&*(),.?":{}|<>-]/.test(user)){
+            setAlert("O usuário não pode conter espaços ou caracteres especiais");
+            return;
+
+        }
         //Verifica se a senha é igual a confirmação.
         if (senha !== confirmaSenha) {
             setAlert("As senhas devem ser iguais");
@@ -42,16 +68,30 @@ export default function RegistroDeLogin() {
             setSenha("");
             setConfirmaSenha("");
             return;
-        } 
+        }
+        
+        // Verifica se a senha atende os requisitos.
+        if (senha.length < 6) {
+            setAlert("A senha deve ter no minimo 6 caracteres");
+            return;
+        }if (senha.length > 16) {
+            setAlert("A senha deve ter no maximo 16 caracteres");
+            return;
+        }if (senha.includes(" ") ){
+            setAlert("A senha não pode conter espaços ou caracteres especiais");
+            return;
+        }if (!/[A-Z]/.test(senha)) {
+            setAlert("A senha deve conter pelo menos uma letra maiúscula");
+            return;
+        }if (!/[a-z]/.test(senha)) {
+            setAlert("A senha deve conter pelo menos uma letra minúscula");
+            return;
+        }
 
-        //const usuarioExistente = usuarios.some(
-        //    (usuario) => usuario.user === user
-        //);
-
-        //Se passar pelos filtros o usuário é cadastrado.
+        //Se passar pelos filtros o usuário é cadastrado e mandado para a tela de login
         setAlert("Sucesso!");
-
-        //Const que está armazenado os dados de login em formato de Objeto. 
+        router.push("/");
+        //Const que está armazenado os dados de login em formato de Objeto. Opção temporaria, pq quando o logi e feito a function reinicia e os dados são perdidos.
         const novoUsuarios = {
             email,
             user,
@@ -108,10 +148,6 @@ export default function RegistroDeLogin() {
                 {alert}
             </p>
 
-
         </div>
-
-
-
     );
 }

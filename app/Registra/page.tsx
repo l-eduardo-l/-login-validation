@@ -1,13 +1,20 @@
 import "./Registra.css";
 import RegistroDeLogin from "@/components/RegistraLogin/RegistraLogin";
 
-export default function Cadastrarlogin () {
+export default function Cadastrarlogin() {
 
     return (
-        <main className="registrarmain">  
+        <main>
+            <div className="authentication-container">
 
-            <RegistroDeLogin />
+                <h1>Sing in to sistem</h1>
 
+                <div className="authentication-body">
+
+                    <RegistroDeLogin />
+
+                </div>
+            </div>
         </main>
     );
 }

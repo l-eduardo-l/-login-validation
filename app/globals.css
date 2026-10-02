@@ -3,7 +3,7 @@
 }
 
 Body {
-    background: var(--gradiente-principal);
+    background-color: rgb(35, 33, 48);
     min-height: 100vh;
 }
 

@@ -14,7 +14,7 @@ export default function Myinput() {
 
     function validaSenha() {
         if (senha === "Edu123" && usuario === "Eduardo") {
-            setMensagem("Entrou!");
+            setMensagem("");
             setSucesso(true);
             router.push("/Home");
         } else {
@@ -22,16 +22,6 @@ export default function Myinput() {
             setSucesso(false);
         }
 
-        const novoUsers = {
-            usur: { usuario },
-            password: { senha },
-            dateAdd: {
-                dia: new Date().getDate(),
-                mes: new Date().getMonth() + 1,
-                ano: new Date().getFullYear(),
-            }
-        }
-        console.log("Lista de Usuários:", novoUsers);
     }
     return (
         <div className="LoginContainer">

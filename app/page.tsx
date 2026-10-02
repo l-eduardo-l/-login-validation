@@ -16,11 +16,9 @@ export default function LoginPage() {
 
             <span className="recSenha">Esqueceu a senha?</span>
 
-            <p>----------------- ou -----------------</p>
+           <div className="barr"></div>
 
             <samp>Não tem conta? <a href="./Registra">Registre-se grátis</a></samp>
-
-            
 
         </div>
     )

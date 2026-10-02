@@ -1,6 +1,5 @@
 .cadastroContainer {
-    background-color: gray;
-    width: 300px;
+    width: 110%;
     height: 300px;
 
     display: flex;
@@ -10,3 +9,22 @@
 
     gap: 10px;
 }
+
+.cadastroContainer input {
+    width: 200px;
+    height: 25px;
+    border-radius: 5px;
+    padding: 3px;
+    border: 1px solid #000000;
+
+}
+
+.cadastroContainer  button{
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}  
