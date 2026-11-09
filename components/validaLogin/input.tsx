@@ -16,7 +16,7 @@ export default function Myinput() {
         if (senha === "Edu123" && usuario === "Eduardo") {
             setMensagem("");
             setSucesso(true);
-            router.push("/Home");
+            router.push("/home");
         } else {
             setMensagem("Login incorreto!");
             setSucesso(false);

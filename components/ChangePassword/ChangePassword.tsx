@@ -37,7 +37,7 @@ export default function ChangePassword() {
             return;
         }
 
-        router.push("/");
+        router.push("/login");
 
     }
 

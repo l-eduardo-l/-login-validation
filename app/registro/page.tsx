@@ -1,6 +1,5 @@
-import "./Registra.css";
+import "./Registro.css";
 import RegistroDeLogin from "@/components/RegistraLogin/RegistraLogin";
-
 export default function Cadastrarlogin() {
 
     return (

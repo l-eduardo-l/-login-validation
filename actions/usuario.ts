@@ -1,0 +1,1 @@
+// Funções que conversam com o Banco de Dados

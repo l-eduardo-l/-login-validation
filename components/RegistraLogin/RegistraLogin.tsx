@@ -90,7 +90,7 @@ export default function RegistroDeLogin() {
 
         //Se passar pelos filtros o usuário é cadastrado e mandado para a tela de login
         setAlert("Sucesso!");
-        router.push("/");
+        router.push("./login");
         
         //Const que está armazenado os dados de login em formato de Objeto. Opção temporaria, pq quando o logi e feito a function reinicia e os dados são perdidos.
         const novoUsuarios = {
