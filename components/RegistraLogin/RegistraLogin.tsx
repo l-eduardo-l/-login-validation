@@ -1,5 +1,6 @@
 "use client";
 
+import { cadastrarUsuario } from "@/actions/usuario"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "./Registralogin.css";
@@ -12,143 +13,104 @@ export default function RegistroDeLogin() {
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setConfirmaSenha] = useState("");
     const [alert, setAlert] = useState("");
-    const [validation, setValidation] = useState(false);
-    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const [usuarios, setUsuarios] = useState([]);
     const router = useRouter();
 
+    // Responsavel por controlar o botão enquanto o Backend processa o cadastro. 
+    const [carregando, setCarregando] = useState(false);
 
-    // Faz com  que a mensagem de alerta desapareça após 2 segundos
-    useEffect(() => {
-        if (alert === "") return;
 
-        const timer = setTimeout(() => {
-            setAlert("");
-        }, 2000);
 
-        return () => clearTimeout(timer);
-    }, [alert]);
+    async function validalogin() {
 
-    //Função que valida Login
-    function validalogin() {
-        if (email.trim() === "" ||
-            user.trim() === "" ||
-            senha.trim() === "") {
-            setAlert("Os campos não podem ser vazios");
-            setEmail("");
-            setUser("");
-            setSenha("");
-            setConfirmaSenha("");
-            return;
-        }
+        // Inicia o carregamento e limpa o alerta anterior
+        setCarregando(true);
+        setAlert("");
 
-        //Verifica se o Email atende os requisitos 
-        if (!emailValido.test(email)) {
-            setAlert("Digite um email Valido.")
-            return;
-        }
+        try {
 
-        //Verifica se o usuário e válido.
-        if (user.length < 3) {
-            setAlert("O usuário deve ter no minimo 3 caracteres");
-            return;    
-        } if (user.length > 12) {
-            setAlert("O usuário deve ter no maximo 12 caracteres");
-            return;
-        } if (user.includes(" ") || /[!@\/#$%^&*(),.?":{}|<>-]/.test(user)){
-            setAlert("O usuário não pode conter espaços ou caracteres especiais");
-            return;
+            // Envia os dados para o backend
+            const resultado = await cadastrarUsuario({
+                email,
+                user,
+                senha,
+                confirmaSenha
+            });
 
-        }
-        //Verifica se a senha é igual a confirmação.
-        if (senha !== confirmaSenha) {
-            setAlert("As senhas devem ser iguais");
-            setEmail("");
-            setUser("");
-            setSenha("");
-            setConfirmaSenha("");
-            return;
-        }
-        
-        // Verifica se a senha atende os requisitos.
-        if (senha.length < 6) {
-            setAlert("A senha deve ter no minimo 6 caracteres");
-            return;
-        }if (senha.length > 16) {
-            setAlert("A senha deve ter no maximo 16 caracteres");
-            return;
-        }if (senha.includes(" ") ){
-            setAlert("A senha não pode conter espaços ou caracteres especiais");
-            return;
-        }if (!/[A-Z]/.test(senha)) {
-            setAlert("A senha deve conter pelo menos uma letra maiúscula");
-            return;
-        }if (!/[a-z]/.test(senha)) {
-            setAlert("A senha deve conter pelo menos uma letra minúscula");
-            return;
-        }
+            // Exibe a resposta recebida do backend
+            setAlert(resultado.mensagem);
 
-        //Se passar pelos filtros o usuário é cadastrado e mandado para a tela de login
-        setAlert("Sucesso!");
-        router.push("./login");
-        
-        //Const que está armazenado os dados de login em formato de Objeto. Opção temporaria, pq quando o logi e feito a function reinicia e os dados são perdidos.
-        const novoUsuarios = {
-            email,
-            user,
-            senha,
-            confirmaSenha,
-            validacao: true,
-            data: {
-                dia: new Date().getDate(),
-                mes: new Date().getMonth() + 1,
-                ano: new Date().getFullYear(),
-                hora: new Date().getHours(),
+            // Se o cadastro foi realizado com sucesso
+            if (resultado.sucesso) {
+
+                // Limpa os campos
+                setEmail("");
+                setUser("");
+                setSenha("");
+                setConfirmaSenha("");
+
+                // Redireciona para a tela de login
+                setTimeout(() => {
+                    router.push("/login");
+                }, 1000);
             }
+
+        } catch (erro) {
+
+            // Trata possíveis erros de comunicação
+            console.error("Erro ao realizar cadastro:", erro);
+
+            setAlert("Não foi possível realizar o cadastro.");
+
+        } finally {
+
+            // Finaliza o carregamento
+            setCarregando(false);
         }
-        console.log(novoUsuarios);
-
     }
-    return (
-        <div className="cadastroContainer">
+return(
+    <div className="cadastroContainer">
 
-            <input
-                type="email"
-                placeholder="Digite seu Email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-            />
+        <input
+            type="email"
+            placeholder="Digite seu Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+        />
 
-            <input
-                type="text"
-                placeholder="Digite seu usuario"
-                value={user}
-                onChange={(event) => setUser(event.target.value)}
-            />
+        <input
+            type="text"
+            placeholder="Digite seu usuario"
+            value={user}
+            onChange={(event) => setUser(event.target.value)}
+        />
 
 
-            <input
-                type="password"
-                placeholder="Digite sua senha"
-                value={senha}
-                onChange={(event) => setSenha(event.target.value)}
-            />
+        <input
+            type="password"
+            placeholder="Digite sua senha"
+            value={senha}
+            onChange={(event) => setSenha(event.target.value)}
+        />
 
-            <input
-                type="password"
-                placeholder="Digite sua senha novamente"
-                value={confirmaSenha}
-                onChange={(event) => setConfirmaSenha(event.target.value)}
-            />
+        <input
+            type="password"
+            placeholder="Digite sua senha novamente"
+            value={confirmaSenha}
+            onChange={(event) => setConfirmaSenha(event.target.value)}
+        />
 
-            <button className={alert ? "sucesso" : "erro"} onClick={validalogin}>
-                Enviar
-            </button>
+        <button
+            className={alert ? "sucesso" : "erro"}
+            onClick={validalogin}
+            disabled={carregando}
+        >
+            {carregando ? "Cadastrando..." : "Enviar"}
+        </button>
+        
+        <p>
+            {alert}
+        </p>
 
-            <p>
-                {alert}
-            </p>
-
-        </div>
-    );
+    </div>
+)
 }
