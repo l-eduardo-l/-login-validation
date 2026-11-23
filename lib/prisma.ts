@@ -1,6 +1,4 @@
 // Cria a conexão entre a aplicação e o banco de dados (SQLite) usando o Prisma.
-// No Prisma 7 o PrismaClient é importado do caminho gerado (generated/prisma)
-// e precisa receber um "adapter" que sabe conversar com o SQLite.
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "../generated/prisma/client";
 

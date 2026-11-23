@@ -1,5 +1,5 @@
-// Configuração do Prisma CLI (migrate, generate, studio...).
-// No Prisma 7 é aqui que fica a URL do banco.
+// configura o caminho do schema e a conexão com o banco através da variável DATABASE_URL
+
 import "dotenv/config";
 import { defineConfig, env } from "prisma/config";
 
