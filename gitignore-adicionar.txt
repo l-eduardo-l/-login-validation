@@ -1,4 +1,3 @@
-# adicione estas linhas no final do seu .gitignore
 /generated/prisma
 *.db
 *.db-journal
