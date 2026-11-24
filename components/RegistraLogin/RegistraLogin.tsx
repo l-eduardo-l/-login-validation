@@ -1,6 +1,5 @@
 "use client";
 
-import { cadastrarUsuario } from "@/actions/usuario"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "./Registralogin.css";
@@ -18,55 +17,6 @@ export default function RegistroDeLogin() {
     // Responsavel por controlar o botão enquanto o Backend processa o cadastro. 
     const [carregando, setCarregando] = useState(false);
 
-
-
-    async function validalogin() {
-
-        // Inicia o carregamento e limpa o alerta anterior
-        setCarregando(true);
-        setAlert("");
-
-        try {
-
-            // Envia os dados para o backend
-            const resultado = await cadastrarUsuario({
-                email,
-                user,
-                senha,
-                confirmaSenha
-            });
-
-            // Exibe a resposta recebida do backend
-            setAlert(resultado.mensagem);
-
-            // Se o cadastro foi realizado com sucesso
-            if (resultado.sucesso) {
-
-                // Limpa os campos
-                setEmail("");
-                setUser("");
-                setSenha("");
-                setConfirmaSenha("");
-
-                // Redireciona para a tela de login
-                setTimeout(() => {
-                    router.push("/login");
-                }, 1000);
-            }
-
-        } catch (erro) {
-
-            // Trata possíveis erros de comunicação
-            console.error("Erro ao realizar cadastro:", erro);
-
-            setAlert("Não foi possível realizar o cadastro.");
-
-        } finally {
-
-            // Finaliza o carregamento
-            setCarregando(false);
-        }
-    }
 return(
     <div className="cadastroContainer">
 
