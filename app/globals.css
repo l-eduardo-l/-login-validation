@@ -2,7 +2,7 @@
   --gradiente-principal: linear-gradient(rgb(40, 40, 41), rgb(0, 0, 0));
 }
 
-Body {
+body {
     background-color: rgb(35, 33, 48);
     min-height: 100vh;
 }

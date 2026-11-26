@@ -1,30 +1,54 @@
+
 "use client";
 
-import "./input.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
+import { login } from "@/app/actions/login"
+import "./input.css";
 
 export default function Myinput() {
+
+    // Estados dos campos de login.
     const [usuario, setUsuario] = useState("");
     const [senha, setSenha] = useState("");
+
+    // Estado da mensagem de retorno.
     const [mensagem, setMensagem] = useState("");
-    const [sucesso, setSucesso] = useState(false);
-    const router = useRouter();
 
-    function validaSenha() {
-        if (senha === "Edu123" && usuario === "Eduardo") {
-            setMensagem("");
-            setSucesso(true);
-            router.push("/home");
-        } else {
-            setMensagem("Login incorreto!");
-            setSucesso(false);
+    // Controla o carregamento do login.
+    const [carregando, setCarregando] = useState(false);
+
+    // Executa o login no backend.
+    async function handleLogin() {
+
+        // Limpa a mensagem anterior.
+        setMensagem("");
+
+        // Inicia o carregamento.
+        setCarregando(true);
+
+        try {
+            // Envia os dados para o backend.
+            const resultado = await login(usuario, senha);
+            console.log("Resposta do backend:", resultado);
+
+            // Exibe a resposta recebida.
+            setMensagem(resultado.mensagem);
+
+        } catch (erro) {
+            // Trata possíveis erros inesperados.
+            console.error("Erro ao realizar login:", erro);
+            setMensagem("Erro ao realizar login.");
+
+        } finally {
+            // Finaliza o carregamento.
+            setCarregando(false);
         }
-
     }
+
     return (
         <div className="LoginContainer">
+
+            {/* Campo de usuário */}
             <input
                 type="text"
                 placeholder="Digite seu usuário"
@@ -32,6 +56,7 @@ export default function Myinput() {
                 onChange={(event) => setUsuario(event.target.value)}
             />
 
+            {/* Campo de senha */}
             <input
                 type="password"
                 placeholder="Digite sua senha"
@@ -39,13 +64,21 @@ export default function Myinput() {
                 onChange={(event) => setSenha(event.target.value)}
             />
 
-            <button onClick={validaSenha} className="button">
-                Acessar
+            {/* Botão de acesso */}
+            <button
+                type="button"
+                className="button"
+                onClick={handleLogin}
+                disabled={carregando}
+            >
+                {carregando ? "Verificando..." : "Acessar"}
             </button>
 
-            <p className={ mensagem ? (sucesso ? "sucesso" : "erro") : ""}>
+            {/* Mensagem de retorno */}
+            <p className={mensagem.includes("sucesso") ? "sucesso" : "erro"}>
                 {mensagem}
             </p>
-        </div> 
+
+        </div>
     );
 }
