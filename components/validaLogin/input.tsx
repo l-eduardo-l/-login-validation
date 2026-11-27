@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { login } from "@/app/actions/login"
 import "./input.css";
+import { useRouter } from "next/navigation";
 
 export default function Myinput() {
 
@@ -17,6 +18,8 @@ export default function Myinput() {
     // Controla o carregamento do login.
     const [carregando, setCarregando] = useState(false);
 
+    const router = useRouter();
+
     // Executa o login no backend.
     async function handleLogin() {
 
@@ -28,11 +31,23 @@ export default function Myinput() {
 
         try {
             // Envia os dados para o backend.
-            const resultado = await login(usuario, senha);
+            const resultado = await login(
+                usuario, 
+                senha
+            );
+            
             console.log("Resposta do backend:", resultado);
-
+            
             // Exibe a resposta recebida.
             setMensagem(resultado.mensagem);
+
+            // Se funcionar manda para a pagina do login 
+            if (resultado.sucesso) {
+                setTimeout(() => {
+                    router.push("/home");
+                }, 1500);
+            }
+
 
         } catch (erro) {
             // Trata possíveis erros inesperados.

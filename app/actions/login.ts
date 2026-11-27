@@ -5,8 +5,17 @@ import { prisma } from "../../lib/prisma";
 import { verifyPassword } from "../../lib/password";
 import { createSession } from "../../lib/session";
 
+
+type login = {
+    sucesso: boolean,
+    mensagem: string
+};
+
 // Recebe os dados enviados pela tela de login.
-export async function login(usuario: string, senha: string) {
+export async function login(
+    usuario: string, 
+    senha: string
+) {
 
     // Verifica se os campos foram preenchidos.
     if (!usuario || !senha) {

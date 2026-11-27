@@ -1,0 +1,19 @@
+.cont_cabecalho {
+    height: 50px;
+    width: 100%;
+    background-color: red;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo_cabecalho {
+    background-color: purple;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    margin: 50px;
+}
+
+
